@@ -14,8 +14,25 @@ from whisperx.schema import AlignedTranscriptionResult, TranscriptionResult
 from whisperx.utils import LANGUAGES, TO_LANGUAGE_CODE, get_writer
 from whisperx.log_utils import get_logger
 
-logger = get_logger(__name__)
+# quisper changes by robertfromont 2026-10-16
+import tarfile
+from urllib.request import urlretrieve
+import progressbar
+quisper_download_progress_bar = None
+def quisper_download_progress(block_num, block_size, total_size):
+    global quisper_download_progress_bar
+    if quisper_download_progress_bar is None:
+        quisper_download_progress_bar = progressbar.ProgressBar(maxval=total_size)
+        quisper_download_progress_bar.start()
 
+    downloaded = block_num * block_size
+    if downloaded < total_size:
+        quisper_download_progress_bar.update(downloaded)
+    else:
+        quisper_download_progress_bar.finish()
+        quisper_download_progress_bar = None
+
+logger = get_logger(__name__)
 
 def transcribe_task(args: dict, parser: argparse.ArgumentParser):
     """Transcription task to be called from CLI.
@@ -36,6 +53,31 @@ def transcribe_task(args: dict, parser: argparse.ArgumentParser):
     device_index: int = args.pop("device_index")
     compute_type: str = args.pop("compute_type")
     verbose: bool = args.pop("verbose")
+
+    # quisper changes by robertfromont 2026-10-16
+    # allow quisper models to be specified
+    quisper_name_to_url = {
+        "quisper-medium":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisper-medium.tar.gz",
+        "quisper-large-v2":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisper-large-v2.tar.gz"
+    }
+    if model_name in quisper_name_to_url:
+        args["language"] = "en"
+        # do we have the model already?
+        quisper_dir = model_dir or os.path.join(os.path.expanduser("~"), ".cache", "quisper")
+        os.makedirs(quisper_dir, exist_ok=True)
+        quisper_model_dir = os.path.join(quisper_dir, model_name)
+        if not os.path.exists(quisper_model_dir): # haven't downloaded it yet
+            # download the model
+            quisper_model_tar_gz = os.path.join(quisper_dir, model_name + ".tar.gz")
+            logger.info("Downloading "+model_name+" ...")
+            urlretrieve(quisper_name_to_url[model_name], quisper_model_tar_gz,
+                        quisper_download_progress)
+            # unpack the file
+            logger.info("Unpacking "+model_name+".tar.gz ...")
+            with tarfile.open(quisper_model_tar_gz) as tar:
+                tar.extractall(quisper_model_dir)
+            os.unlink(quisper_model_tar_gz)
+        model_name = quisper_model_dir
 
     # model_flush: bool = args.pop("model_flush")
     os.makedirs(output_dir, exist_ok=True)
