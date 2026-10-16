@@ -1,13 +1,13 @@
 # QuisperX
 
 QuisperX is a version of [Max Bain](https://github.com/m-bain) et al's [WhisperX](https://github.com/m-bain/whisperX),
-which includes:
+which adds:
 
 - easy access to two extra models fine-tuned on the QuakeBox corpus of New Zealand English speech:
   + `quisper-medium` and
   + `quisper-large-v2`
-- tweaks to vtt output to use certain [CHAT](https://talkbank.org/) 
-  transcription conventions:
+- tweaks to WebVTT output to use certain [CHAT](https://talkbank.org/) 
+  transcription conventions (via `--conventions CLAN`):
   + marking of inter-word pauses:
     * `(.)` - short pause (0.2s < duration ≤ 0.7s) -
     * `(..)` - longer pause  (0.7s < duration ≤ 1.4s) -
@@ -15,10 +15,43 @@ which includes:
   + transcribing interrupted words with a preceding `&+` instead of a trailing ellipsis
 - WebVTT output labels speakers using 
   [voice tags](https://www.w3.org/TR/webvtt1/#webvtt-cue-voice-span), 
-  i.e instead of using the convention \
+  i.e instead of using the convention than includes the speaker ID in the text: \
   `[SPEAKER_00]: So please remind us of your earthquake story.` \
   ... a `<v>`...`</v>` tag is used instead: \
   `<v SPEAKER_00>So please remind us of your earthquake story.</v>`
+
+## QuakeBox Corpus
+
+The `quisper-medium` and `quisper-large-v2` models are versions of Whisper's 
+`medium` and `large-v2` models fine-tuned on a 95-hour subset of the 
+[QuakeBox corpus](https://doi.org/10.1016/j.amper.2016.01.001) of New Zealand English:
+
+```bibtex
+@article{CLARK201613,
+  title = {{"Kia ora. This is my earthquake story". Multiple applications of a sociolinguistic corpus}},
+  journal = {Ampersand},
+  volume = {3},
+  pages = {13-20},
+  year = {2016},
+  issn = {2215-0390},
+  doi = {https://doi.org/10.1016/j.amper.2016.01.001},
+  url = {https://www.sciencedirect.com/science/article/pii/S2215039016300066},
+  author = {Lynn Clark and Helen MacGougan and Jennifer Hay and Liam Walsh},
+  keywords = {Applied sociolinguistics, Corpus, Monologues}
+}
+```
+
+Both models perform better (for NZE sociolinguistic purposes) than the standard Whisper models:
+
+- Many more filler words are included in transcripts.
+- Numeric expressions are generally spelled out as words instead of using digits.
+- Initialisms like "EQC" are generally split into separate words ("E Q C").
+- New Zealand specific place names are transcribed with fewer spelling errors.
+- New Zealand rather than US spelling conventions are generally followed.
+- Other error rates are lower.
+
+See [DOI 10.26021/canterburynz.32736570](https://doi.org/10.26021/canterburynz.32736570)
+for more information.
 
 *The original WhisperX README continues below...*
 
