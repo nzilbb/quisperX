@@ -255,6 +255,8 @@ class SubtitlesWriter(ResultWriter):
         highlight_words: bool = options["highlight_words"]
         max_line_width = 1000 if raw_max_line_width is None else raw_max_line_width
         preserve_segments = max_line_count is None or raw_max_line_width is None
+        # quisper changes by robertfromont 2026-10-16
+        conventions = options["conventions"]
 
         if len(result["segments"]) == 0:
             return
@@ -322,13 +324,59 @@ class SubtitlesWriter(ResultWriter):
                 if result["language"] in LANGUAGES_WITHOUT_SPACES:
                     subtitle_text = "".join([word["word"] for word in subtitle])
                 else:
-                    subtitle_text = " ".join([word["word"] for word in subtitle])
+                    # quisper changes by robertfromont 2026-10-16
+                    if conventions == "CLAN":
+                        # https://talkbank.org/0info/manuals/CHAT.pdf
+                        subtitle_text = ""
+                        lastWord = None
+                        for word in subtitle:
+                            orth = word["word"]
+                            if len(orth) == 4 and orth.endswith("..."): # e.g. "a..."
+                                orth = orth[0] + "&+" # transcribed it as "&+a"
+                            if lastWord == None:
+                                subtitle_text = orth
+                            else:
+                                pause = word["start"] - lastWord["end"]
+                                if pause <= 0.2: # no pause
+                                    subtitle_text = subtitle_text + " " + orth
+                                elif pause <= 0.7: # short pause
+                                    subtitle_text = subtitle_text + " (.) " + orth
+                                elif pause <= 1.4: # medium pause
+                                    subtitle_text = subtitle_text + " (..) " + orth
+                                else: # long pause
+                                    subtitle_text = subtitle_text + " (...) " + orth
+                            lastWord = word
+                    elif conventions == "NZILBB":
+                        subtitle_text = ""
+                        lastWord = None
+                        for word in subtitle:
+                            orth = word["word"]
+                            if len(orth) == 4 and orth.endswith("..."): # e.g. "a..."
+                                orth = orth[0] + "~" # transcribed it as "a~"
+                            if lastWord == None:
+                                subtitle_text = orth
+                            else:
+                                pause = word["start"] - lastWord["end"]
+                                if pause <= 0.2: # no pause
+                                    subtitle_text = subtitle_text + " " + orth
+                                elif pause <= 0.7: # short pause
+                                    subtitle_text = subtitle_text + " . " + orth
+                                elif pause <= 1.4: # medium pause
+                                    subtitle_text = subtitle_text + " - " + orth
+                                else: # long pause
+                                    subtitle_text = subtitle_text + " -- " + orth
+                            lastWord = word
+                    else: # quisper changes end here
+                        subtitle_text = " ".join([word["word"] for word in subtitle])
                 has_timing = any(["start" in word for word in subtitle])
 
                 # add [$SPEAKER_ID]: to each subtitle if speaker is available
                 prefix = ""
+                # quisper changes by robertfromont 2026-10-16 fo <v {speaker}>...</v>
+                suffix = ""
                 if speaker is not None:
-                    prefix = f"[{speaker}]: "
+                    prefix = f"<v {speaker}>"
+                    suffix = f"</v>"
 
                 if highlight_words and has_timing:
                     last = subtitle_start
@@ -338,7 +386,7 @@ class SubtitlesWriter(ResultWriter):
                             start = self.format_timestamp(this_word["start"])
                             end = self.format_timestamp(this_word["end"])
                             if last != start:
-                                yield last, start, prefix + subtitle_text
+                                yield last, start, prefix + subtitle_text + suffix
 
                             yield start, end, prefix + " ".join(
                                 [
@@ -347,10 +395,10 @@ class SubtitlesWriter(ResultWriter):
                                     else word
                                     for j, word in enumerate(all_words)
                                 ]
-                            )
+                            ) + suffix
                             last = end
                 else:
-                    yield subtitle_start, subtitle_end, prefix + subtitle_text
+                    yield subtitle_start, subtitle_end, prefix + subtitle_text + suffix
         else:
             for segment in result["segments"]:
                 segment_start = self.format_timestamp(segment["start"])

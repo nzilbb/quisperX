@@ -78,8 +78,11 @@ def cli():
 
     parser.add_argument("--print_progress", type=str2bool, default = False, help = "if True, progress will be printed in transcribe() and align() methods.")
     parser.add_argument("--interleaved_context", action="store_true", help="Enable interleaved context: re-run the first batch of streams with wrap-around context")
-    parser.add_argument("--version", "-V", action="version", version=f"%(prog)s {importlib.metadata.version('whisperx')}",help="Show whisperx version information and exit")
+    parser.add_argument("--version", "-V", action="version", version=f"%(prog)s {importlib.metadata.version('quisperx')}",help="Show quisperx version information and exit")
     parser.add_argument("--python-version", "-P", action="version", version=f"Python {platform.python_version()} ({platform.python_implementation()})",help="Show python version information and exit")
+
+    # quisper change by robertfromont 2026-10-16
+    parser.add_argument("--conventions", default=None, choices=["NZILBB", "CLAN"], help="pause/disfluency conventions to use")
     # fmt: on
 
     args = parser.parse_args().__dict__

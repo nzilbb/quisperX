@@ -1,9 +1,9 @@
 [project]
-urls = { repository = "https://github.com/m-bain/whisperx" }
-authors = [{ name = "Max Bain" }]
-name = "whisperx"
-version = "3.8.7rc1"
-description = "Time-Accurate Automatic Speech Recognition using Whisper."
+urls = { repository = "https://github.com/nzilbb/quisperx" }
+authors = [{ name = "Robert Fromont" }]
+name = "quisperx"
+version = "1.0.0"
+description = "Time-Accurate Automatic Speech Recognition using Max Bain's WhisperX, with models fine-tuned on New Zealand English."
 readme = "README.md"
 requires-python = ">=3.10, <3.14"
 license = { text = "BSD-2-Clause" }
@@ -30,7 +30,7 @@ dependencies = [
 dev = ["pytest"]
 
 [project.scripts]
-whisperx = "whisperx.__main__:cli"
+quisperx = "whisperx.__main__:cli"
 
 [build-system]
 requires = ["setuptools"]

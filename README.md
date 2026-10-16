@@ -1,3 +1,29 @@
+# QuisperX
+
+QuisperX is a version of [Max Bain](https://github.com/m-bain) et al's [WhisperX](https://github.com/m-bain/whisperX),
+which includes:
+
+- easy access to two extra models fine-tuned on the QuakeBox corpus of New Zealand English speech:
+  + `quisper-medium` and
+  + `quisper-large-v2`
+- tweaks to vtt output to use certain [CHAT](https://talkbank.org/) 
+  transcription conventions:
+  + marking of inter-word pauses:
+    * `(.)` - short pause (0.2s < duration ≤ 0.7s) -
+    * `(..)` - longer pause  (0.7s < duration ≤ 1.4s) -
+    * `(...)` - very long pause (1.4s < duration), and
+  + transcribing interrupted words with a preceding `&+` instead of a trailing ellipsis
+- WebVTT output labels speakers using 
+  [voice tags](https://www.w3.org/TR/webvtt1/#webvtt-cue-voice-span), 
+  i.e instead of using the convention \
+  `[SPEAKER_00]: So please remind us of your earthquake story.` \
+  ... a `<v>`...`</v>` tag is used instead: \
+  `<v SPEAKER_00>So please remind us of your earthquake story.</v>`
+
+*The original WhisperX README continues below...*
+
+---
+
 <h1 align="center">WhisperX</h1>
 
 ## Recall.ai - Meeting Transcription API
