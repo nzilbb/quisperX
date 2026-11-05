@@ -1920,6 +1920,12 @@ wheels = [
 ]
 
 [[package]]
+name = "progressbar"
+version = "2.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a3/a6/b8e451f6cff1c99b4747a2f7235aa904d2d49e8e1464e0b798272aa84358/progressbar-2.5.tar.gz", hash = "sha256:5d81cb529da2e223b53962afd6c8ca0f05c6670e40309a7219eacc36af9b6c63", size = 10046, upload-time = "2018-06-29T02:32:00.222Z" }
+
+[[package]]
 name = "propcache"
 version = "0.4.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2277,6 +2283,62 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/97/c9/39d5b874e8b28845e4ec2202b5da735d0199dbe5b8fb85f91398814a9a46/pyyaml-6.0.3-cp313-cp313-win_amd64.whl", hash = "sha256:79005a0d97d5ddabfeeea4cf676af11e647e41d81c9a7722a193022accdb6b7c", size = 154090, upload-time = "2025-09-25T21:32:33.659Z" },
     { url = "https://files.pythonhosted.org/packages/73/e8/2bdf3ca2090f68bb3d75b44da7bbc71843b19c9f2b9cb9b0f4ab7a5a4329/pyyaml-6.0.3-cp313-cp313-win_arm64.whl", hash = "sha256:5498cd1645aa724a7c71c8f378eb29ebe23da2fc0d7a08071d89469bf1d2defb", size = 140246, upload-time = "2025-09-25T21:32:34.663Z" },
 ]
+
+[[package]]
+name = "quisperx"
+version = "0.1.2"
+source = { editable = "." }
+dependencies = [
+    { name = "ctranslate2" },
+    { name = "faster-whisper" },
+    { name = "huggingface-hub" },
+    { name = "nltk" },
+    { name = "numpy" },
+    { name = "omegaconf" },
+    { name = "pandas" },
+    { name = "progressbar" },
+    { name = "pyannote-audio" },
+    { name = "torch", version = "2.8.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },
+    { name = "torch", version = "2.8.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin'" },
+    { name = "torch", version = "2.8.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')" },
+    { name = "torchaudio", version = "2.8.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux') or sys_platform == 'darwin'" },
+    { name = "torchaudio", version = "2.8.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'AMD64' and platform_machine != 'aarch64' and platform_machine != 'x86_64' and sys_platform == 'linux') or (platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin' and sys_platform != 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')" },
+    { name = "torchaudio", version = "2.8.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')" },
+    { name = "torchcodec", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux') or sys_platform == 'darwin' or sys_platform == 'win32'" },
+    { name = "torchvision" },
+    { name = "transformers" },
+    { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ctranslate2", specifier = ">=4.5.0" },
+    { name = "faster-whisper", specifier = ">=1.2.0" },
+    { name = "huggingface-hub", specifier = ">=0.28.1" },
+    { name = "nltk", specifier = ">=3.9.1" },
+    { name = "numpy", specifier = ">=2.1.0" },
+    { name = "omegaconf", specifier = ">=2.3.0" },
+    { name = "pandas", specifier = ">=2.2.3" },
+    { name = "progressbar", specifier = "~=2.5" },
+    { name = "pyannote-audio", specifier = ">=4.0.0" },
+    { name = "pytest", marker = "extra == 'dev'" },
+    { name = "torch", marker = "sys_platform == 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
+    { name = "torch", marker = "platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
+    { name = "torch", marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchaudio", marker = "sys_platform == 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
+    { name = "torchaudio", marker = "platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
+    { name = "torchaudio", marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torchcodec", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux') or sys_platform == 'darwin' or sys_platform == 'win32'", specifier = ">=0.6.0,<0.8.0" },
+    { name = "torchvision", specifier = "~=0.23.0" },
+    { name = "transformers", specifier = ">=4.48.0" },
+    { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'", specifier = ">=3.3.0", index = "https://download.pytorch.org/whl/cu128" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "regex"
@@ -3133,60 +3195,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/15/22/9ee70a2574a4f4599
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl", hash = "sha256:e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc", size = 129795, upload-time = "2025-06-18T14:07:40.39Z" },
 ]
-
-[[package]]
-name = "quisperx"
-version = "1.0.0"
-source = { editable = "." }
-dependencies = [
-    { name = "ctranslate2" },
-    { name = "faster-whisper" },
-    { name = "huggingface-hub" },
-    { name = "nltk" },
-    { name = "numpy" },
-    { name = "omegaconf" },
-    { name = "pandas" },
-    { name = "pyannote-audio" },
-    { name = "torch", version = "2.8.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },
-    { name = "torch", version = "2.8.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin'" },
-    { name = "torch", version = "2.8.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')" },
-    { name = "torchaudio", version = "2.8.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux') or sys_platform == 'darwin'" },
-    { name = "torchaudio", version = "2.8.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'AMD64' and platform_machine != 'aarch64' and platform_machine != 'x86_64' and sys_platform == 'linux') or (platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin' and sys_platform != 'linux') or (platform_machine == 'aarch64' and platform_python_implementation != 'CPython' and sys_platform == 'linux')" },
-    { name = "torchaudio", version = "2.8.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')" },
-    { name = "torchcodec", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux') or sys_platform == 'darwin' or sys_platform == 'win32'" },
-    { name = "torchvision" },
-    { name = "transformers" },
-    { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "pytest" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ctranslate2", specifier = ">=4.5.0" },
-    { name = "faster-whisper", specifier = ">=1.2.0" },
-    { name = "huggingface-hub", specifier = ">=0.28.1" },
-    { name = "nltk", specifier = ">=3.9.1" },
-    { name = "numpy", specifier = ">=2.1.0" },
-    { name = "omegaconf", specifier = ">=2.3.0" },
-    { name = "pandas", specifier = ">=2.2.3" },
-    { name = "pyannote-audio", specifier = ">=4.0.0" },
-    { name = "pytest", marker = "extra == 'dev'" },
-    { name = "torch", marker = "sys_platform == 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
-    { name = "torch", marker = "platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
-    { name = "torch", marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cu128" },
-    { name = "torchaudio", marker = "sys_platform == 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
-    { name = "torchaudio", marker = "platform_machine != 'AMD64' and platform_machine != 'x86_64' and sys_platform != 'darwin'", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cpu" },
-    { name = "torchaudio", marker = "(platform_machine == 'AMD64' and sys_platform != 'darwin') or (platform_machine == 'x86_64' and sys_platform != 'darwin')", specifier = "~=2.8.0", index = "https://download.pytorch.org/whl/cu128" },
-    { name = "torchcodec", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux') or sys_platform == 'darwin' or sys_platform == 'win32'", specifier = ">=0.6.0,<0.8.0" },
-    { name = "torchvision", specifier = "~=0.23.0" },
-    { name = "transformers", specifier = ">=4.48.0" },
-    { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'", specifier = ">=3.3.0", index = "https://download.pytorch.org/whl/cu128" },
-]
-provides-extras = ["dev"]
 
 [[package]]
 name = "yarl"

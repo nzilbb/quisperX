@@ -53,6 +53,69 @@ Both models perform better (for NZE sociolinguistic purposes) than the standard 
 See [DOI 10.26021/canterburynz.32736570](https://doi.org/10.26021/canterburynz.32736570)
 for more information.
 
+## Installation of QuisperX
+
+### uvx
+
+You can install QuisperX directly from GitHub:
+
+```bash
+uvx git+https://github.com/nzilbb/quisperX.git
+```
+
+### venv
+
+If normally use 'venv' virtual environments for Python, the steps to install QuisperX are:
+
+1. Ensure Python 3.13 and ffmpeg version 4, 5, 6, or 7 are installed.
+   - If you're on Windows you can try:
+     1. Open a command shell: type `cmd` into the Windows search box and hit `<Enter>`
+     2. Install ffmpeg\
+        `winget install -e --id Gyan.FFmpeg --version 7`
+     3. Ensure some version of Python is already installed.
+     4. Install python 3.13\
+        `py install 3.13`
+   - On a Denian Linux system:
+     `sudo apt install -y ffmpeg python3.13 python3.13-venv`
+2. Create a virtual environment called "quisperx-venv":\
+   `python3.13 -m venv quisperx-env`
+3. Activate the virtual environment\
+   `source quisperx-env/bin/activate`
+4. Install QuisperX\
+   `pip install quisperx`
+5. Wait patiently...
+6. Check QuisperX works:\
+   `quisperx --version`\
+   ...which should display a version number (not an error!)
+
+### conda
+
+If you usually use Anaconda or Miniconda for Python, the steps to install QuisperX are:
+
+1. Create an environment:\
+   `conda create --name quisperx python=3.13`
+2. Activate the environment you just created:\
+   `conda activate quisperx`
+3. Install *pip*:\
+   `conda install pip`
+4. Use *pip* to install *QuisperX*:\
+   `pip install quisperx`
+
+
+## Using QuisperX
+
+Each time you want to use QuisperX:
+
+1. Activate the virtual environment:
+   - if you used the *venv* instructions above: `source quisperx-env/bin/activate`
+   - if you used the *conda* instructions above: `conda activate quisperx`
+2. Transcribe recordings, e.g.:
+   `quisperx "/mnt/c/Users/Myself/recordings/interview.wav" --conventions NZILBB`
+
+
+
+```
+
 *The original WhisperX README continues below...*
 
 ---

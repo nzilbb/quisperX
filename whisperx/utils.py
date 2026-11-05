@@ -255,7 +255,7 @@ class SubtitlesWriter(ResultWriter):
         highlight_words: bool = options["highlight_words"]
         max_line_width = 1000 if raw_max_line_width is None else raw_max_line_width
         preserve_segments = max_line_count is None or raw_max_line_width is None
-        # quisper changes by robertfromont 2026-10-16
+        # quisperx changes by robertfromont 2026-10-16
         conventions = options["conventions"]
 
         if len(result["segments"]) == 0:
@@ -324,7 +324,7 @@ class SubtitlesWriter(ResultWriter):
                 if result["language"] in LANGUAGES_WITHOUT_SPACES:
                     subtitle_text = "".join([word["word"] for word in subtitle])
                 else:
-                    # quisper changes by robertfromont 2026-10-16
+                    # quisperx changes by robertfromont 2026-10-16
                     if conventions == "CLAN":
                         # https://talkbank.org/0info/manuals/CHAT.pdf
                         subtitle_text = ""
@@ -366,13 +366,13 @@ class SubtitlesWriter(ResultWriter):
                                 else: # long pause
                                     subtitle_text = subtitle_text + " -- " + orth
                             lastWord = word
-                    else: # quisper changes end here
+                    else: # quisperx changes end here
                         subtitle_text = " ".join([word["word"] for word in subtitle])
                 has_timing = any(["start" in word for word in subtitle])
 
                 # add [$SPEAKER_ID]: to each subtitle if speaker is available
                 prefix = ""
-                # quisper changes by robertfromont 2026-10-16 fo <v {speaker}>...</v>
+                # quisperx changes by robertfromont 2026-10-16 fo <v {speaker}>...</v>
                 suffix = ""
                 if speaker is not None:
                     prefix = f"<v {speaker}>"

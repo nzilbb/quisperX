@@ -14,7 +14,7 @@ from whisperx.schema import AlignedTranscriptionResult, TranscriptionResult
 from whisperx.utils import LANGUAGES, TO_LANGUAGE_CODE, get_writer
 from whisperx.log_utils import get_logger
 
-# quisper changes by robertfromont 2026-10-16
+# quisperx changes by robertfromont 2026-10-16
 import tarfile
 from urllib.request import urlretrieve
 import progressbar
@@ -57,13 +57,13 @@ def transcribe_task(args: dict, parser: argparse.ArgumentParser):
     # quisper changes by robertfromont 2026-10-16
     # allow quisper models to be specified
     quisper_name_to_url = {
-        "quisper-medium":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisper-medium.tar.gz",
-        "quisper-large-v2":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisper-large-v2.tar.gz"
+        "quisperx-medium":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisperx-medium.tar.gz",
+        "quisperx-large-v2":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisperx-large-v2.tar.gz"
     }
     if model_name in quisper_name_to_url:
         args["language"] = "en"
         # do we have the model already?
-        quisper_dir = model_dir or os.path.join(os.path.expanduser("~"), ".cache", "quisper")
+        quisper_dir = model_dir or os.path.join(os.path.expanduser("~"), ".cache", "quisperx")
         os.makedirs(quisper_dir, exist_ok=True)
         quisper_model_dir = os.path.join(quisper_dir, model_name)
         if not os.path.exists(quisper_model_dir): # haven't downloaded it yet
@@ -156,7 +156,7 @@ def transcribe_task(args: dict, parser: argparse.ArgumentParser):
 
     writer = get_writer(output_format, output_dir)
     word_options = ["highlight_words", "max_line_count", "max_line_width",
-                    # quisper changes by robertfromont 2026-10-16
+                    # quisperx changes by robertfromont 2026-10-16
                     "conventions"
                     ]
     if no_align:

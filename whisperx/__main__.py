@@ -13,7 +13,8 @@ def cli():
     # fmt: off
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("audio", nargs="+", type=str, help="audio file(s) to transcribe")
-    parser.add_argument("--model", default="small", help="name of the Whisper model to use")
+    # quisperx change by robertfromont 2026-10-19 default="quisperx-medium" instead of "small"
+    parser.add_argument("--model", default="quisperx-medium", help="name of the Whisper model to use") 
     parser.add_argument("--model_cache_only", type=str2bool, default=False, help="If True, will not attempt to download models, instead using cached models from --model_dir")
     parser.add_argument("--model_dir", type=str, default=None, help="the path to save model files; uses ~/.cache/whisper by default")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu", help="device type to use for PyTorch inference (e.g. cpu, cuda)")
@@ -22,7 +23,8 @@ def cli():
     parser.add_argument("--compute_type", default="default", type=str, choices=["default", "float16", "float32", "int8"], help="compute type for computation; 'default' uses float16 on GPU, float32 on CPU")
 
     parser.add_argument("--output_dir", "-o", type=str, default=".", help="directory to save the outputs")
-    parser.add_argument("--output_format", "-f", type=str, default="all", choices=["all", "srt", "vtt", "txt", "tsv", "json", "aud"], help="format of the output file; if not specified, all available formats will be produced")
+    # quisperx change by robertfromont 2026-10-19 default="vtt" instead of "all"
+    parser.add_argument("--output_format", "-f", type=str, default="vtt", choices=["all", "srt", "vtt", "txt", "tsv", "json", "aud"], help="format of the output file; if not specified, all available formats will be produced")
     parser.add_argument("--verbose", type=str2bool, default=True, help="whether to print out the progress and debug messages")
     parser.add_argument("--log-level", type=str, default=None, choices=["debug", "info", "warning", "error", "critical"], help="logging level (overrides --verbose if set)")
 
@@ -81,7 +83,7 @@ def cli():
     parser.add_argument("--version", "-V", action="version", version=f"%(prog)s {importlib.metadata.version('quisperx')}",help="Show quisperx version information and exit")
     parser.add_argument("--python-version", "-P", action="version", version=f"Python {platform.python_version()} ({platform.python_implementation()})",help="Show python version information and exit")
 
-    # quisper change by robertfromont 2026-10-16
+    # quisperx change by robertfromont 2026-10-16
     parser.add_argument("--conventions", default=None, choices=["NZILBB", "CLAN"], help="pause/disfluency conventions to use")
     # fmt: on
 
