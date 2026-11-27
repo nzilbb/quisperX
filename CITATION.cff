@@ -15,6 +15,9 @@ authors:
     orcid: 'https://orcid.org/0000-0001-5271-5487'
 identifiers:
   - type: doi
+    value: 10.5281/zenodo.24607427
+    description: DOI for QuisperX code
+  - type: doi
     value: 10.26021/canterburynz.34988068
     description: DOI for QuisperX models
 repository-code: 'https://github.com/nzilbb/quisperx'

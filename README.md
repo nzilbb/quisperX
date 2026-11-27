@@ -1,5 +1,7 @@
 # QuisperX
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24607428.svg)](https://doi.org/10.5281/zenodo.24607428)
+
 QuisperX is a version of [Max Bain](https://github.com/m-bain) et al's [WhisperX](https://github.com/m-bain/whisperX),
 which adds:
 
