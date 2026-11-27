@@ -3,9 +3,9 @@
 QuisperX is a version of [Max Bain](https://github.com/m-bain) et al's [WhisperX](https://github.com/m-bain/whisperX),
 which adds:
 
-- easy access to two extra models fine-tuned on the QuakeBox corpus of New Zealand English speech:
-  + `quisper-medium` and
-  + `quisper-large-v2`
+- easy access to two extra models (<https://doi.org/10.26021/canterburynz.34988068>) fine-tuned on the QuakeBox corpus of New Zealand English speech:
+  + `quisperx-medium` and
+  + `quisperx-large-v2`
 - tweaks to WebVTT output to use certain [CHAT](https://talkbank.org/) 
   transcription conventions (via `--conventions CLAN`):
   + marking of inter-word pauses:
@@ -34,7 +34,7 @@ The `quisper-medium` and `quisper-large-v2` models are versions of Whisper's
   pages = {13-20},
   year = {2016},
   issn = {2215-0390},
-  doi = {https://doi.org/10.1016/j.amper.2016.01.001},
+  doi = {10.1016/j.amper.2016.01.001},
   url = {https://www.sciencedirect.com/science/article/pii/S2215039016300066},
   author = {Lynn Clark and Helen MacGougan and Jennifer Hay and Liam Walsh},
   keywords = {Applied sociolinguistics, Corpus, Monologues}
@@ -112,9 +112,6 @@ Each time you want to use QuisperX:
 2. Transcribe recordings, e.g.:
    `quisperx "/mnt/c/Users/Myself/recordings/interview.wav" --conventions NZILBB`
 
-
-
-```
 
 *The original WhisperX README continues below...*
 

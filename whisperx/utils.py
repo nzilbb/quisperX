@@ -332,7 +332,7 @@ class SubtitlesWriter(ResultWriter):
                         for word in subtitle:
                             orth = word["word"]
                             if len(orth) == 4 and orth.endswith("..."): # e.g. "a..."
-                                orth = orth[0] + "&+" # transcribed it as "&+a"
+                                orth = "&+"+ orth[0]  # transcribed it as "&+a"
                             if lastWord == None:
                                 subtitle_text = orth
                             else:

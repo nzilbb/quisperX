@@ -57,8 +57,8 @@ def transcribe_task(args: dict, parser: argparse.ArgumentParser):
     # quisper changes by robertfromont 2026-10-16
     # allow quisper models to be specified
     quisper_name_to_url = {
-        "quisperx-medium":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisperx-medium.tar.gz",
-        "quisperx-large-v2":"https://publicdata.canterbury.ac.nz/Research/NZILBB/asr/quisperx-large-v2.tar.gz"
+        "quisperx-medium":"https://ndownloader.figshare.com/files/71512903",
+        "quisperx-large-v2":"https://ndownloader.figshare.com/files/71512951"
     }
     if model_name in quisper_name_to_url:
         args["language"] = "en"
@@ -67,16 +67,20 @@ def transcribe_task(args: dict, parser: argparse.ArgumentParser):
         os.makedirs(quisper_dir, exist_ok=True)
         quisper_model_dir = os.path.join(quisper_dir, model_name)
         if not os.path.exists(quisper_model_dir): # haven't downloaded it yet
+            logger.info(model_name+" is released under the CC BY-NC-SA 4.0 International license")
             # download the model
             quisper_model_tar_gz = os.path.join(quisper_dir, model_name + ".tar.gz")
+            if os.path.exists(quisper_model_tar_gz):
+                os.remove(quisper_model_tar_gz)
             logger.info("Downloading "+model_name+" ...")
-            urlretrieve(quisper_name_to_url[model_name], quisper_model_tar_gz,
-                        quisper_download_progress)
+            local_filename, headers = urlretrieve(
+                quisper_name_to_url[model_name], quisper_model_tar_gz,
+                quisper_download_progress)
             # unpack the file
             logger.info("Unpacking "+model_name+".tar.gz ...")
             with tarfile.open(quisper_model_tar_gz) as tar:
                 tar.extractall(quisper_model_dir)
-            os.unlink(quisper_model_tar_gz)
+            os.remove(quisper_model_tar_gz)
         model_name = quisper_model_dir
 
     # model_flush: bool = args.pop("model_flush")

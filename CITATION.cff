@@ -1,0 +1,39 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: QuisperX
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Robert
+    family-names: Fromont
+    email: robert.fromont@canterbury.ac.nz
+    affiliation: 'New Zealand Institute of Language, Brain and Behaviour'
+    orcid: 'https://orcid.org/0000-0001-5271-5487'
+identifiers:
+  - type: doi
+    value: 10.26021/canterburynz.34988068
+    description: DOI for QuisperX models
+repository-code: 'https://github.com/nzilbb/quisperx'
+abstract: >-
+  QuisperX is a version of Max Bain et al's WhisperX, which
+  adds easy access to two extra models fine-tuned on the
+  QuakeBox corpus of New Zealand English speech, tweaks to
+  WebVTT output to use certain transcription conventions for
+  marking of inter-word pauses and transcription of
+  interrupted words, and WebVTT output labels speakers using
+  voice tags.
+keywords:
+  - Automatic Speech Recognition
+  - ASR
+  - Speech to Text
+  - STT
+  - New Zealand English
+  - NZE
+  - Sociolinguistics
+license: BSD-2-Clause
+version: 1.0.0
+date-released: '2026-11-27'
